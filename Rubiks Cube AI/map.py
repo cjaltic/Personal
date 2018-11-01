@@ -134,6 +134,7 @@ class Map:
     # to rotate, and int 1:3 saying how many times to rotate
     def makeMove(self, move):
         f = move[0]
+
         for i in range(move[1]):
             if f == 0:
                 m.turnFront()
@@ -168,13 +169,8 @@ class Map:
 
 if __name__ == '__main__':
     m = Map()
-    m.printCube()
-    for i in range(6):
-        m.makeMove((0,1))
-        m.makeMove((2,1))
-        m.makeMove((1,1))
-        m.makeMove((2,3))
-        m.makeMove((1,3))
-        m.makeMove((0,3))
-    m.printCube()
-    print(m.isSolved())
+    while(True):
+        m.printCube()
+        move = input('make a move')
+        d = (int(move[0]), int(move[1]))
+        m.makeMove(d)
