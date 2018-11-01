@@ -169,7 +169,7 @@ class Map:
 if __name__ == '__main__':
     m = Map()
     m.printCube()
-    for i in range(1):
+    for i in range(6):
         m.makeMove((0,1))
         m.makeMove((2,1))
         m.makeMove((1,1))
