@@ -148,13 +148,6 @@ class Map:
             if f == 5:
                 m.turnBack()
 
-
-
-
-
-
-
-
     def printCube(self):
         for i in range(6):
             print("")
