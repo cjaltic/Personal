@@ -49,15 +49,6 @@ class Game:
                 isPlayer1 = not isPlayer1
 
 
-    ########################################################################
-    #               Simulate a Remote Game (against our server)
-    #
-    ########################################################################
-
-    #Play against the instructor AI server
-
-    #NOTE: This will not yet work as the combat server is not currently online. It will be open at least
-    #one week before the assignment is due.
     
     def playAgainstInstructor(self, difficulty):
 
