@@ -1,4 +1,6 @@
 from face import *
+import random
+
 class Map:
     # map is the "map" of the cube state.  map has
     # a state which is a list of faces.  map can print
@@ -13,6 +15,53 @@ class Map:
         left = [4,4,4,4]
         back = [5,5,5,5]
         self.state = [front, up, right, down, left, back]
+
+    def translate(self, i):
+        if i == 0:
+            return "F"
+        if i == 1:
+            return "U"
+        if i == 2:
+            return "R"
+        if i == 3:
+            return "D"
+        if i == 4:
+            return "L"
+        if i == 5:
+            return "B"
+        if i == "F":
+            return 0
+        if i == "U":
+            return 1
+        if i == "R":
+            return 2
+        if i == "D":
+            return 3
+        if i == "L":
+            return 4
+        if i == "B":
+            return 5
+    def translateDirection(self, i):
+        if i == 1:
+            return ""
+        if i == 2:
+            return "2"
+        if i == 3:
+            return "'"
+    def getOppisite(self, i):
+        if i == 0:
+            return 5
+        if i == 1:
+            return 3
+        if i == 2:
+            return 4
+        if i == 3:
+            return 1
+        if i == 4:
+            return 2
+        if i == 5:
+            return 0
+
 
     def isSolved(self):
         for i in self.state:
@@ -168,11 +217,29 @@ class Map:
                 m.rotateZ()
 
     def scramble(self, length):
+        moves = []
         for i in range(length):
-            randint
+            x = 0
+            while x == 0:
+                move = (random.randint(0,5), random.randint(1,3))
+                if len(moves) != 0:
+                    if move[0] != self.translate(moves[-1][0]) and move[0] != self.getOppisite(self.translate(moves[-1][0])):
+                        moves.append((self.translate(move[0]), self.translateDirection(move[1])))
+                        self.makeMove(move)
+                        x = 1
+                else:
+                    moves.append((self.translate(move[0]), self.translateDirection(move[1])))
+                    self.makeMove(move)
+                    x = 1
+
+        for i in moves:
+            print(i[0],i[1])
+        self.printMap()
 
 
-    def printCube(self):
+
+
+    def printMap(self):
         for i in range(6):
             print("")
             if i == 0:
@@ -189,16 +256,36 @@ class Map:
                 print("Back -- 5")
             Face(self.state[i]).printFace()
 
+    def allPossible(self, ln):
+        possibleMoves = []
+        moves = []
+        for i in range(6):
+            for j in range(3):
+                moves.append((i,j+1))
+        for i in moves:
+            possibleMoves.append([i])
+
+        while ln > 0:
+            tempList = []
+            for z in possibleMoves:
+                for m in moves:
+                    tempList.append(z.append(m))
+            for i in tempList:
+                possibleMoves.append(i)
+            ln -= 1
+        print(possibleMoves)
+        return possibleMoves
 
 if __name__ == '__main__':
-    m = Map()
-    x = 0
-    while x == 0:
-        m.printCube()
-        print(m.isSolved())
-        move = input('make a move')
-        d = (int(move[0]), int(move[1]))
-        if len(move) != 2 or 0 > d[0] or d[0] > 8:
-            print("INVALID MOVE")
-            x = 2
-        m.makeMove(d)
+
+    pass
+
+    # while x == 0:
+    #     m.printMap()
+    #     print(m.isSolved())
+    #     move = input('make a move')
+    #     d = (int(move[0]), int(move[1]))
+    #     if len(move) != 2 or 0 > d[0] or d[0] > 8:
+    #         print("INVALID MOVE")
+    #         x = 2
+    #     m.makeMove(d)
