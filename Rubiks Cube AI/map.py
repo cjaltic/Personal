@@ -130,6 +130,18 @@ class Map:
         self.state[2] = f.layout
         self.state[5] = Face(self.state[5]).rotateClockwise()
 
+    def rotateX(self):
+        self.makeMove((4,1))
+        self.makeMove((2,3))
+
+    def rotateY(self):
+        self.makeMove((1,1))
+        self.makeMove((3,3))
+
+    def rotateZ(self):
+        self.makeMove((0,1))
+        self.makeMove((5,3))
+
     # makeMove is a modifier that takes a move.  a move is a tuple containing int 0:5 saying which face
     # to rotate, and int 1:3 saying how many times to rotate
     def makeMove(self, move):
@@ -148,6 +160,12 @@ class Map:
                 m.turnLeft()
             if f == 5:
                 m.turnBack()
+            if f == 6:
+                m.rotateX()
+            if f == 7:
+                m.rotateY()
+            if f == 8:
+                m.rotateZ()
 
     def printCube(self):
         for i in range(6):
@@ -169,8 +187,13 @@ class Map:
 
 if __name__ == '__main__':
     m = Map()
-    while(True):
+    x = 0
+    while x == 0:
         m.printCube()
+        print(m.isSolved())
         move = input('make a move')
         d = (int(move[0]), int(move[1]))
+        if len(move) != 2 or 0 > d[0] or d[0] > 8:
+            print("INVALID MOVE")
+            x = 2
         m.makeMove(d)

@@ -1,5 +1,4 @@
 from map import*
-from face import*
 
 class debug:
 
@@ -14,19 +13,3 @@ if __name__ == '__main__':
         d = (0,1)
         print(d)
         m.makeMove(d)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
