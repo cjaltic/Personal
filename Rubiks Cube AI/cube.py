@@ -17,5 +17,11 @@ class Cube:
         for i in temp:
             self.cube.append(Cublet(i))
 
+    # given the cublet id returns that cublet's index in cube
+    def findPiece(self):
+        for i in range(len(self.cube)):
+            if self.cube[i].id == i:
+                return i
+
 if __name__ == '__main__':
     pass

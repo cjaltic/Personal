@@ -167,6 +167,11 @@ class Map:
             if f == 8:
                 m.rotateZ()
 
+    def scramble(self, length):
+        for i in range(length):
+            randint
+
+
     def printCube(self):
         for i in range(6):
             print("")
