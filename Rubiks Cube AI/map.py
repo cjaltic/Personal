@@ -270,13 +270,20 @@ if __name__ == '__main__':
     m.scramble(10)
     b = beginnersmethod(m)
     b.firstPiece()
+
     b.secondPiece()
+    b.thirdPiece()
+    b.fourthPiece()
     print("")
     print(b.log)
     print(Cube(b.cube).cube[4].id)
     print(Cube(b.cube).cube[4].ore)
     print(Cube(b.cube).cube[5].id)
     print(Cube(b.cube).cube[5].ore)
+    print(Cube(b.cube).cube[6].id)
+    print(Cube(b.cube).cube[6].ore)
+    print(Cube(b.cube).cube[7].id)
+    print(Cube(b.cube).cube[7].ore)
 
     # while x == 0:
     #     m.printMap()

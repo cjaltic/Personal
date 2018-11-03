@@ -58,7 +58,7 @@ class beginnersmethod:
             if i == 7:
                 self.makeMove((5,1))
             self.makeMove((2,1))
-        else:
+        if i < 4:
             while c.cube[2].id != 5:
                 self.makeMove((1,1))
                 c = Cube(self.cube)
@@ -66,6 +66,34 @@ class beginnersmethod:
         self.makeMove((3,3))
         self.flipCorner(5)
         self.makeMove((3,1))
+    def thirdPiece(self):
+        c = Cube(self.cube)
+        i = c.findPiece(6)
+        if i == 6:
+            pass
+        if i == 7:
+            self.makeMove((5,1))
+        if i < 4:
+            while c.cube[1].id != 6:
+                self.makeMove((1,1))
+                c = Cube(self.cube)
+            self.makeMove((5,3))
+        self.makeMove((3,2))
+        self.flipCorner(6)
+        self.makeMove((3,2))
+    def fourthPiece(self):
+        c = Cube(self.cube)
+        i = c.findPiece(7)
+        if i < 4:
+            while c.cube[0].id != 7:
+                self.makeMove((1,1))
+                c = Cube(self.cube)
+            self.makeMove((4,1))
+            self.makeMove((1,1))
+            self.makeMove((4,3))
+        self.makeMove((3,1))
+        self.flipCorner(7)
+        self.makeMove((3,3))
 
 
 
