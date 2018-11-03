@@ -100,6 +100,8 @@ class beginnersmethod:
 
 
 
+
+
 if __name__ == '__main__':
     m = Map()
     m.scramble(2)

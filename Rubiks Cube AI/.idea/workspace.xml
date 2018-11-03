@@ -46,8 +46,8 @@
       <file leaf-file-name="beginnersmethod.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/beginnersmethod.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="95" column="26" lean-forward="false" selection-start-line="95" selection-start-column="26" selection-end-line="95" selection-end-column="26" />
+            <state relative-caret-position="191">
+              <caret line="98" column="0" lean-forward="true" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -109,8 +109,8 @@
         <option value="$PROJECT_DIR$/face.py" />
         <option value="$PROJECT_DIR$/solver.py" />
         <option value="$PROJECT_DIR$/cube.py" />
-        <option value="$PROJECT_DIR$/beginnersmethod.py" />
         <option value="$PROJECT_DIR$/map.py" />
+        <option value="$PROJECT_DIR$/beginnersmethod.py" />
       </list>
     </option>
   </component>
@@ -529,8 +529,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/beginnersmethod.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="95" column="26" lean-forward="false" selection-start-line="95" selection-start-column="26" selection-end-line="95" selection-end-column="26" />
+        <state relative-caret-position="191">
+          <caret line="98" column="0" lean-forward="true" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
