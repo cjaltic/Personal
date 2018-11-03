@@ -1,4 +1,5 @@
 from face import *
+from beginnersmethod import *
 import random
 
 class Map:
@@ -234,7 +235,7 @@ class Map:
 
         for i in moves:
             print(i[0],i[1])
-        self.printMap()
+        #self.printMap()
 
 
 
@@ -256,29 +257,26 @@ class Map:
                 print("Back -- 5")
             Face(self.state[i]).printFace()
 
-    def allPossible(self, ln):
-        possibleMoves = []
+    def allPossible(self, l, c):
         moves = []
         for i in range(6):
             for j in range(3):
                 moves.append((i,j+1))
-        for i in moves:
-            possibleMoves.append([i])
 
-        while ln > 0:
-            tempList = []
-            for z in possibleMoves:
-                for m in moves:
-                    tempList.append(z.append(m))
-            for i in tempList:
-                possibleMoves.append(i)
-            ln -= 1
-        print(possibleMoves)
-        return possibleMoves
+
 
 if __name__ == '__main__':
-
-    pass
+    m = Map()
+    m.scramble(10)
+    b = beginnersmethod(m)
+    b.firstPiece()
+    b.secondPiece()
+    print("")
+    print(b.log)
+    print(Cube(b.cube).cube[4].id)
+    print(Cube(b.cube).cube[4].ore)
+    print(Cube(b.cube).cube[5].id)
+    print(Cube(b.cube).cube[5].ore)
 
     # while x == 0:
     #     m.printMap()
