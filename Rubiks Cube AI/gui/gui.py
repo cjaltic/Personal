@@ -6,7 +6,7 @@
 
 import sys, math, time, pygame
 from beginnersmethod import *
-from map2 import *
+from map import *
 
 class GUI():
 
@@ -169,7 +169,7 @@ class GUI():
 
 if __name__ == "__main__":
     print('Testing GUI')
-    m = Map2(7)
+    m = Map(2)
 
     g = GUI(map=m, player=True, width=800, height=600)
 
