@@ -1,6 +1,5 @@
-from map import*
-from cube import*
-class beginnersmethod:
+from unused.cube import*
+class beginnersMethod:
 
     def __init__(self, map):
         self.cube = map
@@ -93,141 +92,12 @@ class beginnersmethod:
             self.makeMove((4,3))
         self.makeMove((3,1))
         self.flipCorner(7)
-
-    def oLL(self):
-        correct = 0
-        for i in self.cube.state[1]:
-            if i == 1:
-                correct = correct + 1
-        if correct == 4:
-            return
-        if correct == 2:
-            c = Cube(self.cube)
-
-            if (self.cube.state[1][1] == 1 and self.cube.state[1][3] == 1) or (self.cube.state[1][0] == 1 and self.cube.state[1][2] == 1):
-                while self.cube.state[2][1] != 1:
-                    self.makeMove((1,1))
-                    c = Cube(self.cube)
-            c = Cube(self.cube)
-            while c.cube[0].ore != 0 or c.cube[3].ore != 0:
-                self.makeMove((1,1))
-                c = Cube(self.cube)
-            c = Cube(self.cube)
-            if self.cube.state[0][1] == 1:
-                self.makeMove((4,3))
-                self.makeMove((1,3))
-                self.makeMove((4,1))
-                self.makeMove((1,1))
-                self.makeMove((2,1))
-                self.makeMove((1,3))
-                self.makeMove((2,3))
-                self.makeMove((0,1))
-            else:
-                self.makeMove((1,2))
-                self.makeMove((0,1))
-                self.makeMove((2,1))
-                self.makeMove((1,1))
-                self.makeMove((2,3))
-                self.makeMove((1,3))
-                self.makeMove((0,3))
-        if correct == 1:
-            while self.cube.state[1][3] != 1:
-                self.makeMove((1,1))
-            if self.cube.state[0][1] == 1:
-                self.makeMove((2,1))
-                self.makeMove((1,1))
-                self.makeMove((2,3))
-                self.makeMove((1,1))
-                self.makeMove((2,1))
-                self.makeMove((1,2))
-                self.makeMove((2,3))
-            else:
-                self.makeMove((1,2))
-                self.makeMove((2,1))
-                self.makeMove((1,2))
-                self.makeMove((2,3))
-                self.makeMove((1,3))
-                self.makeMove((2,1))
-                self.makeMove((1,3))
-                self.makeMove((2,3))
-        if correct == 0:
-            if (self.cube.state[2][0] == 1 and self.cube.state[2][1] == 1) or (self.cube.state[0][0] == 1 and self.cube.state[0][1] == 1):
-                while self.cube.state[0][0] != 1:
-                    self.makeMove((1,1))
-                self.makeMove((2,2))
-                self.makeMove((1,2))
-                self.makeMove((2,1))
-                self.makeMove((1,2))
-                self.makeMove((2,2))
-            else:
-                while self.cube.state[0][1] != 1 and self.cube.state[4][1] != 1:
-                    self.makeMove((1,1))
-                self.makeMove((0,1))
-                self.makeMove((2,1))
-                self.makeMove((1,1))
-                self.makeMove((2,3))
-                self.makeMove((1,3))
-                self.makeMove((2,1))
-                self.makeMove((1,1))
-                self.makeMove((2,3))
-                self.makeMove((1,3))
-                self.makeMove((0,3))
-
-    def pLL(self):
-        if self.cube.state[4][0] == self.cube.state[4][1] and self.cube.state[0][0] == self.cube.state[0][1]:
-            pass
-        elif self.cube.state[4][0] == self.cube.state[4][1] or self.cube.state[0][0] == self.cube.state[0][1] or self.cube.state[2][0] == self.cube.state[2][1] or self.cube.state[5][2] == self.cube.state[5][3]:
-            while self.cube.state[4][0] != self.cube.state[4][1]:
-                self.makeMove((1,1))
-            self.makeMove((2,1))
-            self.makeMove((1,1))
-            self.makeMove((2,3))
-            self.makeMove((1,3))
-            self.makeMove((2,3))
-            self.makeMove((0,1))
-            self.makeMove((2,2))
-            self.makeMove((1,3))
-            self.makeMove((2,3))
-            self.makeMove((1,3))
-            self.makeMove((2,1))
-            self.makeMove((1,1))
-            self.makeMove((2,3))
-            self.makeMove((0,3))
-        else:
-            self.makeMove((0,1))
-            self.makeMove((2,1))
-            self.makeMove((1,3))
-            self.makeMove((2,3))
-            self.makeMove((1,3))
-            self.makeMove((2,1))
-            self.makeMove((1,1))
-            self.makeMove((2,3))
-            self.makeMove((0,3))
-            self.makeMove((2,1))
-            self.makeMove((1,1))
-            self.makeMove((2,3))
-            self.makeMove((1,3))
-            self.makeMove((2,3))
-            self.makeMove((0,1))
-            self.makeMove((2,1))
-            self.makeMove((0,3))
-        while not self.cube.isSolved():
-            self.makeMove((1,1))
-
-        for i in range(5):
-            self.makeMove((6,1))
-            self.makeMove((7,1))
-            self.makeMove((8,3))
-
-
-
-
-
+        self.makeMove((3,3))
 
 
 if __name__ == '__main__':
-    m = Map()
-    m.scramble(2)
+    m = Map(2)
+    m.scramble(12)
 
 
 

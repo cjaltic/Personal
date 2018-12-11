@@ -63,7 +63,7 @@ if __name__ == '__main__':
             if event.type == pygame.QUIT:
                 r = False
 
-        if m.board[m.player[0] - 1][m.player[1]] == 'o':
+        if m.board[m.player[0] - 1][m.player[1]] == 'o' :
             m.move(0)
             print(0)
         elif m.board[m.player[0]][m.player[1] + 1] == 'o':
@@ -77,53 +77,54 @@ if __name__ == '__main__':
         pygame.time.delay(100)
 
 
-    # for i in range(200):
-    #     p = Player()
-    #     p.randomMoves(5)
-    #     players.append(p)
-    #
-    # run = True
-    # x = 1
-    # for p in players:
-    #
-    #     for event in pygame.event.get():
-    #         if event.type == pygame.QUIT:
-    #             run = False
-    #     keys = pygame.key.get_pressed()
-    #     for n in p.moves:
-    #         m.move(n)
-    #         pygame.time.delay(10)
-    #         g.draw()
-    #         g.update(m)
-    #
-    #     print(m.score())
-    #     scores.append(m.score())
-    #     pygame.time.delay(100)
-    #     if keys[pygame.K_LEFT]:
-    #         m.move(3)
-    #     if keys[pygame.K_DOWN]:
-    #         m.move(2)
-    #     if keys[pygame.K_RIGHT]:
-    #         m.move(1)
-    #     if keys[pygame.K_UP]:
-    #         m.move(0)
-    #     g.update(m)
-    #     g.draw()
-    #     m = Maze()
-    # index = 0
-    # max = 0
-    # for i in range(len(scores)):
-    #     if scores[i] > max:
-    #         max = scores[i]
-    #         index = i
-    # print(index)
-    # print(max)
-    # m = Maze()
-    # g.update(m)
-    # for i in players[index].moves:
-    #     m.move(n)
-    #     g.update(m)
-    #     pygame.time.delay(1000)
+    for i in range(200):
+        p = Player()
+        p.randomMoves(5)
+        players.append(p)
+
+    run = True
+    x = 1
+    for p in players:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+        keys = pygame.key.get_pressed()
+        for n in p.moves:
+            m.move(n)
+            pygame.time.delay(10)
+            g.draw()
+            g.update(m)
+
+        print(m.score())
+        scores.append(m.score())
+        pygame.time.delay(100)
+        if keys[pygame.K_LEFT]:
+            m.move(3)
+        if keys[pygame.K_DOWN]:
+            m.move(2)
+        if keys[pygame.K_RIGHT]:
+            m.move(1)
+        if keys[pygame.K_UP]:
+            m.move(0)
+        g.update(m)
+        g.draw()
+        m = Maze()
+    index = 0
+    max = 0
+    for i in range(len(scores)):
+        if scores[i] > max:
+            max = scores[i]
+            index = i
+    print(index)
+    print(max)
+    m = Maze()
+    g.update(m)
+    for i in players[index].moves:
+        m.move(n)
+        g.update(m)
+        pygame.time.delay(1000)
+        
 
 
 
