@@ -5,6 +5,7 @@
 '''
 
 import math, random
+from copy import copy, deepcopy
 from ManhattanCube import*
 
 class Cube:
@@ -29,6 +30,7 @@ class Cube:
                     return False
         return True
 
+
     # trueScramble is the final version of scramble, it takes an
     # int which is the length of scramble and returns a list of 
     # moves (represented as tuples) which is the scramble.
@@ -51,10 +53,10 @@ class Cube:
 
     # obviousSolution takes a scramble and returns the reverse of that solution
     # most of the time this is not the shortest solution, but we can be positive this
-    # is a valid solution.  
+    # is a solution.  
     @staticmethod
     def obviousSolution(scramble):
-        scramble = scramble.reverse()
+        scramble.reverse()
         solution = []
         for i in scramble:
             solution.append((i[0], 4 - i[1]))
@@ -65,6 +67,8 @@ class Cube:
     # rubik's cube notation
     @staticmethod
     def translateMove(move):
+        if move == None:
+            return None
         if move[0] == 0:
             answer = "F"
         if move[0] == 1:
@@ -82,7 +86,7 @@ class Cube:
         if move[1] == 3:
             answer = answer + "'"
         return answer
-
+            
     # scramble takes a length and returns list of moves
     # in the scramble, scramble won't turn the same layer
     # or opposite layers sequentially
@@ -94,14 +98,6 @@ class Cube:
                 move = (random.randint(0, 4), random.randint(1, 3))
             moves.append(move)
             self.makeMove(move)
-        return moves
-
-    def simple_scramble(self, length):
-        moves = []
-        for i in range(length):
-            #moves.append((random.randint(0,self.moves), random.randint(1,3)))
-            moves.append((random.randint(0,self.moves), 1))
-            self.makeMove(moves[-1])
         return moves
 
     @staticmethod
@@ -383,6 +379,9 @@ class Cube:
             for j in rows:
                 print(j)
 
+    # Generate all childrent states from the current
+    # depth: a string that says how many children to explore: None=front,up,right,down,left,back; 2x=front,up,right all 1,2,prime; prime=front,up,right,down,left,back, 1,prime, all=front,up,right,down,left,back 1,2,prime
+    # Return an array of touples with the first index being the move and second being a new Cube class
     def children(self,depth=None):
         children = []
         # Only use front, right and up with prime as we don't need all moves
@@ -401,14 +400,17 @@ class Cube:
                 children.append(((i,2), self.__copy__().makeMove((i,2))))
         return children
 
+    # Copy current cube and return a new instance of it
     def __copy__(self):
         m = Cube(self.size)
-        m.state = self.state.copy()
+        m.state = deepcopy(self.state)
         return m
 
+    # Return a hash of the cube state (base 6 encoding with 10 digits)
     def __hash__(self):
         return Cube.encode(self.state)
 
+    # base 6 encoding with 10 digits
     @staticmethod
     def encode(state):
         encoding = 0
@@ -420,6 +422,7 @@ class Cube:
         #return BaseSixEncoding().encode(hash)
         return encoding
 
+    # decode an encoded state array
     @staticmethod
     def decode(hash):
         #hash_10 = BaseSixEncoding().decode(hash)
@@ -433,27 +436,6 @@ class Cube:
                 hash_10 = int(hash_10//6)
         return state
 
-class Base94Encoding:
-    def __init__(self):
-        self.start_index = 32
-        self.encoding_length = 94
-
-    def encode(self, num):
-        num = int(num)
-        encoded = ""
-        while num > 0:
-            encoded = chr(self.start_index + int(num%self.encoding_length)) + encoded
-            num = int(num//self.encoding_length)
-        return encoded
-
-    def decode(self, encoding):
-        decoded = int(0)
-        count = 0
-        while len(encoding) > 0:
-            decoded += (ord(encoding[-1])-self.start_index)*int((self.encoding_length**count))
-            encoding = encoding[:-1]
-            count += 1
-        return decoded
 
 if __name__ == '__main__':
     cube = Cube(2)

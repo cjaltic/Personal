@@ -1,28 +1,16 @@
 '''
-
     Team 4 - Ben Duggan & Connor Altic
     11/26/18
     Class containing heuristics that can be used
-
 '''
 
 from Cube import *
 from ManhattanCube import *
 
 class Heuristic:
-
-    @staticmethod
-    def anotherHeuristic(cube):
-        m = ManhattanCube(cube)
-        score = 0
-        for i in range(len(m.cube)):
-            if m.cube[i] == i:
-                if m.ore[i] == 0:
-                    score = score + 50
-                else:
-                    score = score + 25
-        return score
-
+    # Simple heuristic that gives a higher score for the more similar colors on a face
+    # state = a Cube object
+    # return the heuristic value
     @staticmethod
     def simpleHeuristic(state):
         current_state = state.state
@@ -40,8 +28,11 @@ class Heuristic:
                     score += 50
                 elif l == 2:
                     score += 25
-        return score/-1200
+        return 1200 - score
 
+    # Heuristic that calculates the hamming distance of the cube in comparison to the goal state
+    # cube = a Cube object
+    # return the heuristic value
     @staticmethod
     def hammingDistance(cube):
         current_state = cube.state
@@ -53,11 +44,14 @@ class Heuristic:
                     score -= 1
         return score
 
-    # https://stackoverflow.com/questions/36490073/heuristic-for-rubiks-cube
+    # Heuristic that calculates the 3D Manhattan Distance of the cube by calling myHeuristic.scoreCube(cube)
+    # cube = a Cube object
+    # return the heuristic value
     @staticmethod
     def manhattanDistance(cube):
         return myHeuristic.scoreCube(cube)
 
+# Class used to calculate the 3d Manhattan Distance of the cube
 class myHeuristic:
     def __init__(self):
         pass
@@ -69,7 +63,7 @@ class myHeuristic:
         score = 0
         for i in range(6):
             score = score + myHeuristic.scorePiece(cube, i)
-        return (float(score) / 4) + simple
+        return (float(score) / 4) + simple/1200
 
     @staticmethod
     def scorePiece(c, p):
