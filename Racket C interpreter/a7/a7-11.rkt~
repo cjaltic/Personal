@@ -1,0 +1,19 @@
+#lang racket
+(define apply-k
+  (λ (k v)
+    (match k
+      [`,y #:when(symbol? y) (y v)]
+      [`(k-sub1 ,k)
+       (k (sub1 v))] 
+      [`(k-mult-inside ,u ,k)
+       (k (* u v))]
+      [`(k-mult-outside ,x2 ,env ,k)
+       (value-of-cps x2 env (k-mult-inside v k))]
+      [`(k-zero ,k)
+       (k (zero? v))]
+      [else (k v)])))
+
+
+
+
+

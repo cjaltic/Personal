@@ -1,0 +1,180 @@
+#lang racket
+
+(require "parenthec.rkt")
+
+
+
+#|
+(define empty-env
+  (λ ()
+    (umwelt_empty)))
+ 
+(define empty-k
+  (λ ()
+    (continue_empty)))
+|#
+
+;; step 7 program counter
+(define-program-counter count)
+
+
+(define-registers
+  k
+  v
+  var
+  exp
+  env
+  rator
+  rand)
+
+(define-union expr
+  (const cexp)
+  (var n)
+  (if test conseq alt)
+  (mult nexp1 nexp2)
+  (sub1 nexp)
+  (zero nexp)
+  (letcc body)
+  (throw kexp vexp)
+  (let exp body)              
+  (lambda body)
+  (app rator rand))
+
+(define-union umwelt
+  (empty)
+  (extend-env v env))
+
+(define-union continue
+  (empty)
+  (k-sub1 k)
+  (k-zero k)
+  (k-mult-inside v k)
+  (k-mult-outside env-cps x k)
+  (k-if-inside env-cps conseq alt k)
+  (k-let env-cps body k)
+  (k-throw-outside env-cps k-exp)
+  (k-throw-inside v env-cps)
+  (k-rator-inside v k)
+  (k-rator-outside env-cps rand k))
+
+(define-label value-of-cps
+ ;; (lambda ()
+  (union-case exp expr
+              [(const ex)
+               (begin (set! v ex) (apply-k))]
+              [(mult x1 x2)
+               (begin (set! exp x1) (set! k (continue_k-mult-outside env x2 k))
+                 (value-of-cps))]
+              [(sub1 n)
+               (begin (set! exp n) (set! k (continue_k-sub1 k))
+                 (value-of-cps))]
+              [(zero n)
+               (begin
+                 (set! exp n)(set! k (continue_k-zero k))(value-of-cps))]
+              [(if test conseq alt)
+               (begin (set! exp test)(set! k (continue_k-if-inside env conseq alt k))
+                 (value-of-cps))]
+              [(letcc body)
+               (begin (set! exp body)(set! env (umwelt_extend-env k env))
+                 (set! k k)(value-of-cps))]
+              [(throw k-exp v-exp)
+               (begin (set! exp k-exp)(set! k (continue_k-throw-outside env v-exp))
+                 (value-of-cps))]
+              [(let e body)
+               (begin
+                 (set! exp e)(set! k (continue_k-let env body k))
+                 (value-of-cps))]
+              [(var y)
+               (begin (set! var y) (apply-env))]
+              [(lambda body)
+               (begin (set! exp exp) (set! v (schluss_caltic body env)) 
+                 (apply-k))]
+              [(app rator rand)
+               (begin
+                 (set! exp rator) (set! k (continue_k-rator-outside env rand k))
+                 (value-of-cps))]))
+
+
+
+(define-label apply-k
+  ;;(lambda ()
+  (union-case k continue
+      [(empty) v]
+      [(k-sub1 k^)
+       (begin (set! v (sub1 v))(set! k k^)
+         (apply-k))]
+      [(k-zero k^)
+       (begin(set! v (zero? v))(set! k k^)
+         (apply-k))]
+      [(k-mult-outside env^ x k^)
+       (begin
+         (set! exp x)(set! env env^)
+         (set! k (continue_k-mult-inside v k^))(value-of-cps))]
+      [(k-mult-inside u^ k^)
+       (begin(set! k k^)(set! v (* u^ v))
+         (apply-k))]
+      [(k-if-inside env^ conseq alt k^)
+       (if v
+           (begin(set! env env^)(set! exp conseq)(set! k k^)
+             (value-of-cps))
+           (begin(set! exp alt)(set! env env^)
+             (set! k k^)(value-of-cps)))]
+      [(k-throw-outside env^ k^)
+       (begin
+         (set! exp k^)(set! env env^)
+         (set! k (continue_k-throw-inside v env))(value-of-cps))]
+      [(k-throw-inside v env^)
+       (begin(set! exp exp)(set! env env)
+         (set! k v)(apply-k))]
+      [(k-let env^ body k^)
+       (begin(set! exp body)(set! k k^)(set! env (umwelt_extend-env v env^))
+         (value-of-cps))]
+      [(k-rator-outside env^ rand k^)
+       (begin(set! exp rand)(set! env env^)
+         (set! k (continue_k-rator-inside v k^))(value-of-cps))]
+      [(k-rator-inside v^ k^)
+       (begin(set! rand v)(set! k k^)
+         (set! exp exp)(set! env env)
+         (set! rator v^)(apply-closure))]))
+
+
+;; a9 step 2 define closure union 
+(define-union schluss
+  (caltic body env-cps))
+;; new apply-closure using union
+(define-label apply-closure
+  ;;(lambda ()
+    (union-case rator schluss
+                [(caltic body env^)
+                 (begin (set! k k) (set! env (umwelt_extend-env rand env^))
+                   (set! exp body)
+                   (value-of-cps))]))
+
+
+
+
+(define-label apply-env
+ ;; (lambda ()
+    (union-case env umwelt
+                [(empty) (error "you fucked up")]
+                [(extend-env v^ env^)
+                 (if (zero? var)
+                     (begin (set! v v^) (set! k k)
+                       (apply-k))
+                     (begin (set! env env^)(set! var (sub1 var))
+                       (set! k k)(apply-env)))]))
+
+
+
+
+#|
+;; tag a closure with caltic, my student id
+(define-label make-closure
+  (λ (body env)
+    `(caltic ,body ,env)))
+
+(define apply-closure
+  (λ (v u k)
+    (match v
+      [`(caltic ,body ,env)
+       (value-of-cps body (extend-env u env) k)]))) |#
