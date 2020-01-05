@@ -1,6 +1,5 @@
 #lang racket
 
- ;;; heyyyy mom
 
 (define empty-env
   (lambda ()
